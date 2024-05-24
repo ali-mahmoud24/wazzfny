@@ -1,0 +1,197 @@
+<div class="wrapper">
+  <h2 mat-dialog-title>{{ applicant.jobName }}</h2>
+  <mat-dialog-content>
+    <form
+      [formGroup]="editRequestApplicantForm"
+      (ngSubmit)="onSubmit()"
+      class="form"
+    >
+      <div>
+        <mat-form-field class="form-group">
+          <mat-label>تصنيف الوظيفة</mat-label>
+          <mat-select
+            (selectionChange)="onChange($event)"
+            matInput
+            formControlName="jobCategoryId"
+          >
+            <mat-option
+              *ngFor="let jobCategory of jobCategoryList"
+              [value]="jobCategory.jobCategoryId"
+              >{{ jobCategory.categoryName }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="showJobs">
+          <mat-label>الوظيفة</mat-label>
+          <mat-select matInput formControlName="jobId">
+            <mat-option *ngFor="let job of jobList" [value]="job.jobId">{{
+              job.jobName
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field class="form-group">
+          <mat-label>مستوى الخبرة</mat-label>
+          <mat-select matInput formControlName="experienceId">
+            <mat-option
+              *ngFor="let experience of experienceList"
+              [value]="experience.experienceId"
+              >{{ experience.experienceName }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>الجنس</mat-label>
+          <mat-select matInput formControlName="gender">
+            <mat-option [value]="1">ذكر</mat-option>
+            <mat-option [value]="2">أنثى</mat-option>
+            <mat-option [value]="3">كلاهما</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field class="form-group">
+          <mat-label>السن من</mat-label>
+          <input matInput type="number" formControlName="ageFrom" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>السن إلى</mat-label>
+          <input matInput type="number" formControlName="ageTo" />
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field class="form-group">
+          <mat-label>مهارات الكمبيوتر</mat-label>
+          <mat-select matInput multiple formControlName="computerSkillsIds">
+            <mat-option
+              *ngFor="let computerSkill of computerSkillList"
+              [value]="computerSkill.computerSkillId"
+              >{{ computerSkill.skillName }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>اللغة</mat-label>
+          <mat-select matInput multiple formControlName="languagesIds">
+            <mat-option
+              *ngFor="let language of languageList"
+              [value]="language.languageId"
+              >{{ language.languageName }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field class="form-group">
+          <mat-label>الراتب من</mat-label>
+          <input matInput type="number" formControlName="salaryFrom" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>الراتب الي</mat-label>
+          <input matInput type="number" formControlName="salaryTo" />
+        </mat-form-field>
+      </div>
+      <mat-form-field class="full-width">
+        <mat-label>قابل للتفاوض</mat-label>
+        <mat-select matInput formControlName="isNegotiate">
+          <mat-option [value]="true">نعم</mat-option>
+          <mat-option [value]="false">لا</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div>
+        <mat-form-field class="form-group">
+          <mat-label>نوع الوظيفة</mat-label>
+          <mat-select matInput formControlName="workType">
+            <mat-option [value]="true">Full Time</mat-option>
+            <mat-option [value]="false">Part Time</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>عدد الساعات</mat-label>
+          <input matInput type="number" formControlName="workHour" />
+        </mat-form-field>
+      </div>
+
+      <mat-form-field style="margin-bottom: 1rem" class="full-width">
+        <mat-label>أدخل نطاق تاريخ النشر</mat-label>
+        <mat-date-range-input
+          [formGroup]="editRequestApplicantForm"
+          [rangePicker]="picker"
+        >
+          <input
+            matStartDate
+            formControlName="startPublish"
+            placeholder="بداية النشر"
+          />
+          <input
+            matEndDate
+            formControlName="endPublish"
+            placeholder="نهاية النشر"
+          />
+        </mat-date-range-input>
+        <mat-hint>YYYY/MM/DD – YYYY/MM/DD</mat-hint>
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+
+        <mat-error
+          *ngIf="
+            editRequestApplicantForm.controls.startPublish.hasError(
+              'matStartDateInvalid'
+            )
+          "
+          >Invalid start date</mat-error
+        >
+        <mat-error
+          *ngIf="
+            editRequestApplicantForm.controls.endPublish.hasError(
+              'matEndDateInvalid'
+            )
+          "
+          >Invalid end date</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <mat-label>التفاصيل</mat-label>
+        <textarea
+          formControlName="details"
+          cdkTextareaAutosize
+          #autosize="cdkTextareaAutosize"
+          cdkAutosizeMinRows="3"
+          cdkAutosizeMaxRows="10"
+          type="text"
+          matInput
+        ></textarea>
+        <mat-hint>تفاصيل الوظيفة في أقل من 550 حرف</mat-hint>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button
+      (click)="onSubmit()"
+      mat-flat-button
+      color="primary"
+      mat-dialog-close
+      [disabled]="!editRequestApplicantForm.valid"
+      class="btn"
+    >
+      أحفظ الوظيفة
+    </button>
+    <button mat-flat-button color="warn" mat-dialog-close>إلغاء</button>
+  </mat-dialog-actions>
+</div>

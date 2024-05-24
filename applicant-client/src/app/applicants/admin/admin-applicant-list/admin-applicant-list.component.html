@@ -1,0 +1,226 @@
+<div class="wrapper">
+  <!-- <app-search-applicants-form /> -->
+  <mat-card class="filter-card">
+    <mat-card-header>
+      <mat-card-title class="title">
+        <mat-icon>filter_list</mat-icon>
+        <h5>تصفية نتائج البحث</h5>
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="filterForm" (ngSubmit)="onFilter()">
+        <mat-form-field style="width: 100%">
+          <mat-label>البحث بواسطة اسم الوظيفة</mat-label>
+          <input
+            (input)="onFilter()"
+            type="text"
+            matInput
+            autocomplete="off"
+            formControlName="jobName"
+          />
+        </mat-form-field>
+
+        <mat-accordion role="listitem">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>مجال الوظيفة</mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-selection-list
+              color="primary"
+              (selectionChange)="onFilter()"
+              formControlName="selectedJobCategoryIds"
+            >
+              <mat-list-option
+                *ngFor="let jobCategory of jobCategoryList"
+                [value]="jobCategory.jobCategoryId"
+                >{{ jobCategory.categoryName }}</mat-list-option
+              >
+            </mat-selection-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>نوع التوظيف</mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <mat-selection-list
+              color="primary"
+              (selectionChange)="onFilter()"
+              formControlName="selectedWorkTypes"
+            >
+              <mat-list-option value="1">دوام كامل</mat-list-option>
+              <mat-list-option value="0">دوام جزئي</mat-list-option>
+            </mat-selection-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>المستوى المهني</mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-selection-list
+              color="primary"
+              (selectionChange)="onFilter()"
+              formControlName="selectedExperienceIds"
+            >
+              <mat-list-option
+                *ngFor="let experience of experienceList"
+                [value]="experience.experienceId"
+                >{{ experience.experienceName }}</mat-list-option
+              >
+            </mat-selection-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>الجنس</mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-selection-list
+              color="primary"
+              (selectionChange)="onFilter()"
+              formControlName="selectedGenders"
+            >
+              <mat-list-option value="1">ذكر</mat-list-option>
+              <mat-list-option value="2">أنثى</mat-list-option>
+              <mat-list-option value="3">كلاهما</mat-list-option>
+            </mat-selection-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>حالة البحث</mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-selection-list
+              color="primary"
+              (selectionChange)="onFilter()"
+              formControlName="selectedStatuses"
+            >
+              <mat-list-option [value]="false">جاري البحث</mat-list-option>
+              <mat-list-option [value]="true">انتهى البحث</mat-list-option>
+            </mat-selection-list>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="cards-container">
+    <mat-card-header>
+      <mat-card-title class="title"> </mat-card-title>
+      <mat-card-title class="title">
+        <h2>الوظائف</h2>
+      </mat-card-title>
+      <mat-card-subtitle>
+        <h3>تم العثور على {{ filteredApplicantList.length }} وظيفة</h3>
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <div
+      *ngIf="!filteredApplicantList || filteredApplicantList.length == 0"
+      class="center"
+    >
+      <h2>عذراً، لا توجد وظائف مطابقة لهذا البحث.</h2>
+    </div>
+
+    <mat-card
+      *ngFor="let applicant of filteredApplicantList"
+      (click)="onOpenDetailsDialog(applicant.requestId)"
+      class="card"
+      [ngClass]="activeCard == applicant.requestId ? 'active-card' : ''"
+    >
+      <!-- <header class="card-header"> -->
+      <mat-card-header>
+        <mat-card-title class="title">{{ applicant.jobName }}</mat-card-title>
+        <mat-card-subtitle
+          >منذ {{ getDiffDays(applicant.postDate) }} أيام</mat-card-subtitle
+        >
+      </mat-card-header>
+
+      <div>
+        <!-- <h3>الخبرة</h3> -->
+        <mat-chip-listbox>
+          <mat-chip>
+            {{ applicant.experienceName }}
+          </mat-chip>
+        </mat-chip-listbox>
+      </div>
+
+      <!-- </header> -->
+
+      <mat-card-content>
+        <!-- <p>{{ applicant.postDate | date:'mediumDate' }}</p> -->
+        <p>{{ applicant.details | slice : 0 : 180 }}...</p>
+        <mat-divider></mat-divider>
+      </mat-card-content>
+
+      <!-- <mat-card-actions>
+      <button mat-button>LIKE</button>
+      <button mat-button>SHARE</button>
+    </mat-card-actions> -->
+
+      <mat-card-footer>
+        <!-- <div class="chip-container">
+          <h3>الخبرة المطلوبة:</h3>
+          <mat-chip-listbox>
+            <mat-chip>
+              {{ applicant.experienceName }}
+            </mat-chip>
+          </mat-chip-listbox>
+        </div>
+        <mat-divider></mat-divider> -->
+
+        <div class="chip-container">
+          <h3>اللغات المطلوبة:</h3>
+          <mat-chip-listbox>
+            <mat-chip *ngFor="let language of applicant.languages">
+              {{ language.languageName }}
+            </mat-chip>
+          </mat-chip-listbox>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="chip-container">
+          <h3>المهارات المطلوبة:</h3>
+          <mat-chip-listbox>
+            <mat-chip *ngFor="let computerSkill of applicant.computerSkills">
+              {{ computerSkill.skillName }}
+            </mat-chip>
+          </mat-chip-listbox>
+        </div>
+
+        <div style="display: flex; gap: 1rem; align-items: center">
+          <mat-slide-toggle
+            [(ngModel)]="applicant.isEnd"
+            color="primary"
+            (click)="
+              changeRequestApplicantStatus(
+                $event,
+                applicant.requestId,
+                applicant.isEnd
+              )
+            "
+          ></mat-slide-toggle>
+          <h3>أنهي البحث</h3>
+        </div>
+
+        <mat-card-actions>
+          <button
+            (click)="onOpenEditModal($event, applicant.requestId)"
+            mat-flat-button
+            color="primary"
+          >
+            عدل الطلب
+          </button>
+          <button
+            (click)="onDeleteApplicant($event, applicant.requestId)"
+            mat-flat-button
+            color="warn"
+          >
+            الغاء
+          </button>
+        </mat-card-actions>
+      </mat-card-footer>
+    </mat-card>
+  </mat-card>
+</div>

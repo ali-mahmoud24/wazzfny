@@ -1,0 +1,66 @@
+.wrapper {
+  margin: 0 auto;
+  max-width: 600px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h3 {
+  color: #303f9f;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  padding-left: 1rem;
+}
+
+.card {
+  margin: 1rem auto;
+
+  /* background-color: #e9e3e3;  */
+  border: 1px solid #c4c1c1; /* Add a border to the card */
+  border-radius: 4px; /* Add rounded corners to the card */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Add a box shadow for depth */
+
+  padding: 0 20px;
+}
+
+.background {
+  height: calc(100vh - 4rem);
+
+  background: radial-gradient(
+      circle farthest-corner at 0 0,
+      rgb(89, 160, 216),
+      rgb(12, 60, 99)
+    )
+    no-repeat 0 0/100% calc(100vh / 2);
+}
+
+/* LOADING ANIMATION */
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner:before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  border-top-color: #000000;
+  animation: spinner 0.8s linear infinite;
+}

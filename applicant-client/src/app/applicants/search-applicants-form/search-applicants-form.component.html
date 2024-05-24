@@ -1,0 +1,89 @@
+<mat-card class="filter-card">
+  <mat-card-header>
+    <mat-card-title class="title">
+      <mat-icon>filter_list</mat-icon>
+      <h5>تصفية نتائج البحث</h5>
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="filterForm" (ngSubmit)="onFilter()">
+      <mat-form-field style="width: 100%">
+        <mat-label>البحث بواسطة اسم الوظيفة</mat-label>
+        <input
+          (input)="onFilter()"
+          type="text"
+          matInput
+          autocomplete="off"
+          formControlName="jobName"
+        />
+      </mat-form-field>
+
+      <mat-accordion role="listitem">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>مجال الوظيفة</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-selection-list
+            color="primary"
+            (selectionChange)="onFilter()"
+            formControlName="selectedJobCategoryIds"
+          >
+            <mat-list-option
+              *ngFor="let jobCategory of jobCategoryList"
+              [value]="jobCategory.jobCategoryId"
+              >{{ jobCategory.categoryName }}</mat-list-option
+            >
+          </mat-selection-list>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>نوع التوظيف</mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <mat-selection-list
+            color="primary"
+            (selectionChange)="onFilter()"
+            formControlName="selectedWorkTypes"
+          >
+            <mat-list-option value="1">دوام كامل</mat-list-option>
+            <mat-list-option value="0">دوام جزئي</mat-list-option>
+          </mat-selection-list>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>المستوى المهني</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-selection-list
+            color="primary"
+            (selectionChange)="onFilter()"
+            formControlName="selectedExperienceIds"
+          >
+            <mat-list-option
+              *ngFor="let experience of experienceList"
+              [value]="experience.experienceId"
+              >{{ experience.experienceName }}</mat-list-option
+            >
+          </mat-selection-list>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>الجنس</mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-selection-list
+            color="primary"
+            (selectionChange)="onFilter()"
+            formControlName="selectedGenders"
+          >
+            <mat-list-option value="1">ذكر</mat-list-option>
+            <mat-list-option value="2">أنثى</mat-list-option>
+            <mat-list-option value="3">كلاهما</mat-list-option>
+          </mat-selection-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </form>
+  </mat-card-content>
+</mat-card>

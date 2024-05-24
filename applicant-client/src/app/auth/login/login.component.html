@@ -1,0 +1,103 @@
+<section class="background">
+  <!-- <div *ngIf="isLoading" style="text-align: center">
+    <mat-spinner color="accent" diameter="200"></mat-spinner>
+  </div> -->
+
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title>
+        <h3>سجل الدخول إلى حسابك</h3>
+      </mat-card-title>
+      <mat-card-subtitle>
+        <h4>
+          ليس لديك حساب معنا؟
+          <a [routerLink]="['/register']">إنشاء حساب جديد</a>
+        </h4>
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
+        <mat-form-field class="form-group">
+          <mat-label>البريد الإلكتروني</mat-label>
+          <input matInput type="email" formControlName="email" />
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>كلمة السر</mat-label>
+          <input matInput type="password" formControlName="password" />
+        </mat-form-field>
+
+        <span (click)="onOpenForgetPasswordDialog()" class="forgot-password">
+          نسيت كلمة السر ؟
+        </span>
+
+        <!-- <h4
+        (click)="onOpenForgetPasswordDialog()"
+        style="color: #3f51b5; cursor: pointer"
+      >
+        نسيت كلمة السر ؟
+      </h4> -->
+
+        <button
+          mat-raised-button
+          color="primary"
+          [mtBasicSpinner]="isLoading"
+          [disabled]="isLoading || !loginForm.valid"
+        >
+          تسجيل الدخول
+        </button>
+
+        <!-- <button mat-flat-button color="primary">تسجيل الدخول</button> -->
+      </form>
+    </mat-card-content>
+  </mat-card>
+</section>
+
+<!-- <div class="wrapper">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>Sign In</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="form">
+        <mat-form-field>
+          <mat-label>Username</mat-label>
+          <input
+            formControlName="username"
+            type="text"
+            id="username"
+            matInput
+            placeholder="Username"
+          />
+          <mat-error>Required</mat-error>
+        </mat-form-field>
+
+
+
+
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input
+            formControlName="password"
+            type="password"
+            id="password"
+            matInput
+            placeholder="Password"
+          />
+          <mat-error>Required</mat-error>
+        </mat-form-field>
+
+        <button
+          mat-raised-button
+          color="success"
+          color="primary"
+          style="width: 100%"
+        >
+          Sign In
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div> -->

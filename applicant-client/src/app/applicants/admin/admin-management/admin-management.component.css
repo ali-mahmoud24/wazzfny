@@ -1,0 +1,45 @@
+.container {
+  width: 70%;
+  margin: 0 3rem;
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  gap: 1rem;
+
+  flex-wrap: wrap;
+}
+
+.background {
+  height: calc(100vh - 4rem);
+  width: 100%;
+  /* background: radial-gradient(circle farthest-corner at 0 0, #124695, #0070eb)
+      no-repeat 0 0/100% 460px; */
+
+  /* background-color: #0070eb; */
+
+  /* background: radial-gradient(circle farthest-corner at 0 0, #124695, #0070eb)
+      no-repeat 0 0/100% calc((100vh - 4rem) / 2); */
+
+  /* background: radial-gradient(circle farthest-corner at 0 0, #59a0d8, #8ec0f4)
+      no-repeat 0 0/100% calc((100vh - 4rem) / 2);
+  
+    background: radial-gradient(circle farthest-corner at 0 0, #0c3c63, #0058a7)
+      no-repeat 0 0/100% calc((100vh - 4rem) / 2); */
+
+  background: radial-gradient(
+      circle farthest-corner at 0 0,
+      rgb(89, 160, 216),
+      rgb(12, 60, 99)
+    )
+    no-repeat 0 0/100% calc((100vh - 4rem) / 2);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  min-width: 25%;
+  background-color: rgb(194, 209, 220);
+}
+

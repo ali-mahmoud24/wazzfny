@@ -1,0 +1,28 @@
+.filter-card {
+  /* border: 1px solid #c4c1c1; 
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); */
+  border-top: 6px solid #303f9f;
+  margin-right: 4rem;
+}
+
+.mat-mdc-card-content:last-child {
+  padding-bottom: 0;
+}
+
+.title {
+  color: #303f9f;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin-bottom: 1rem; */
+}
+
+.title h5 {
+  margin: 0;
+}
+
+.mat-mdc-card-content {
+  padding: 0;
+}

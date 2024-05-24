@@ -1,0 +1,24 @@
+/* .menu-spacer {
+  flex: 1 1 auto;
+}
+ */
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.nav-list {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.active {
+  /* background-color: rgb(51, 51, 51); */
+  background-color: rgb(200, 200, 200, 0.5);
+  /* color: #fff; */
+}
+
+.nav {
+  padding-right: 2rem;
+  padding-left: 2rem;
+}

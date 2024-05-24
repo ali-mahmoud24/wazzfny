@@ -1,0 +1,92 @@
+<div class="wrapper">
+  <h2 mat-dialog-title>{{ applicant.jobName }}</h2>
+  <mat-dialog-content>
+    <h3>الوصف الوظيفي:</h3>
+    <p>
+      {{ applicant.details }}
+    </p>
+
+    <!-- <h3>نوع العمل:</h3>
+    <p>
+      {{ applicant.workType ? "Full Time" : "Part Time" }}
+    </p> -->
+
+    <div class="chip-container">
+      <h3>اللغات المطلوبة:</h3>
+      <mat-chip-listbox>
+        <mat-chip *ngFor="let language of applicant.languages">
+          {{ language.languageName }}
+        </mat-chip>
+      </mat-chip-listbox>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="chip-container">
+      <h3>المهارات المطلوبة:</h3>
+      <mat-chip-listbox>
+        <mat-chip *ngFor="let computerSkill of applicant.computerSkills">
+          {{ computerSkill.skillName }}
+        </mat-chip>
+      </mat-chip-listbox>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="chip-container">
+      <h3>الخبرة المطلوبة:</h3>
+      <mat-chip-listbox>
+        <mat-chip>
+          {{ applicant.experienceName }}
+        </mat-chip>
+      </mat-chip-listbox>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="chip-container">
+      <h3>تفاصيل الوظيفة :</h3>
+
+      <div class="job-detail-container">
+        <h3>نوع التوظيف :</h3>
+        <p>
+          {{ applicant.workType ? "دوام كامل" : "دوام جزئي" }}
+        </p>
+      </div>
+
+      <div class="job-detail-container">
+        <h3>الراتب الشهري :</h3>
+        <p>{{ applicant.salaryFrom }} - {{ applicant.salaryTo }}</p>
+      </div>
+
+      <div class="job-detail-container">
+        <h3>ساعات العمل :</h3>
+        <p>{{ applicant.workHour }} ساعات</p>
+      </div>
+
+      <div class="job-detail-container">
+        <h3>الجنس :</h3>
+        <p>{{ getApplicantGender(applicant.gender) }}</p>
+      </div>
+
+      <div class="job-detail-container">
+        <h3>تاريخ النشر :</h3>
+        <p>{{ applicant.postDate | date : "mediumDate" }}</p>
+      </div>
+
+      <div class="job-detail-container">
+        <h3>نطاق تاريخ البحث :</h3>
+        <p>
+          {{ applicant.startPublish | date : "mediumDate" }} -
+          {{ applicant.endPublish | date : "mediumDate" }}
+        </p>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-flat-button color="warn" mat-dialog-close>إلغاء</button>
+    <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>
+      Install
+    </button> -->
+  </mat-dialog-actions>
+</div>

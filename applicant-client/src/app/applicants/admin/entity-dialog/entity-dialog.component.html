@@ -1,0 +1,48 @@
+<div class="wrapper">
+  <h2 mat-dialog-title>{{ data.title }}</h2>
+  <mat-dialog-content style="display: flex; flex-direction: column; gap: 1rem">
+    <p *ngIf="!list || list.length == 0">No list for this task.</p>
+
+    <mat-accordion role="listitem">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>{{ data.title }} </mat-panel-title>
+          <!-- <mat-panel-description>
+                {{ jobCategory.employeeName }}
+              </mat-panel-description> -->
+        </mat-expansion-panel-header>
+        <div *ngFor="let item of list">
+          <h4>{{ findName(item) }}</h4>
+          <p>{{ item.notes }}</p>
+          <mat-divider />
+        </div>
+        <!-- <p class="name">
+              By: <span>{{ item.employeeName }}</span>
+            </p> -->
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <form [formGroup]="addEntityForm" (ngSubmit)="onSubmit()" class="form">
+      <mat-form-field class="full-width">
+        <mat-label>الاسم</mat-label>
+        <input matInput type="text" formControlName="name" />
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <mat-label>الملاحظات</mat-label>
+        <input matInput type="text" formControlName="notes" />
+      </mat-form-field>
+      <mat-dialog-actions align="end">
+        <button
+          [disabled]="isLoading || !addEntityForm.valid"
+          [mtBasicSpinner]="isLoading"
+          type="submit"
+          mat-flat-button
+          color="primary"
+        >
+          إضافة
+        </button>
+        <button mat-flat-button color="warn" mat-dialog-close>إلغاء</button>
+      </mat-dialog-actions>
+    </form>
+  </mat-dialog-content>
+</div>

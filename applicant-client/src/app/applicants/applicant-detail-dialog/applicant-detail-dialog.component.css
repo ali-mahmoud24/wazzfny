@@ -1,0 +1,29 @@
+h3 {
+  color: #000;
+  font-weight: bold;
+}
+
+.chip-container {
+  margin-bottom: 0.5rem;
+}
+
+.wrapper {
+  max-width: 600px;
+  min-width: 500px;
+}
+
+.job-detail-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+
+html,
+body {
+  /* height: 100%; */
+
+  font-family: "Lato", sans-serif;
+  font-family: "Open Sans", sans-serif;
+  font-family: "Tajawal", sans-serif;
+}

@@ -1,0 +1,142 @@
+<!-- <div style="height: 100vh">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <button
+        mat-icon-button
+        (click)="sidenav.toggle()"
+        fxShow="true"
+        fxHide.gt-sm
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <h3 style="font-size: 2rem">وظفني</h3>
+      <span>Responsive Navigation</span>
+      <span class="menu-spacer"> </span>
+      <div fxShow="true" fxHide.lt-md>
+        The following menu items will be hidden on both SM and XS screen sizes
+        <a [routerLink]="['/applicants/new']" mat-button>أضف وظيفة</a>
+        <a [routerLink]="['/applicants']" mat-button>الوظائف</a>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <mat-sidenav-container fxFlexFill>
+    <mat-sidenav #sidenav>
+      <mat-nav-list>
+        <a (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
+        <a [routerLink]="['/applicants/new']" mat-list-item>أضف وظيفة</a>
+        <a [routerLink]="['/applicants']" mat-list-item>الوظائف</a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content fxFlexFill>
+      <router-outlet />
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div> -->
+
+<mat-toolbar class="nav" color="primary">
+  <!-- <button
+    mat-icon-button
+    class="example-icon"
+    aria-label="Example icon-button with menu icon"
+  >
+    <mat-icon>menu</mat-icon>
+  </button> -->
+  <span>وظفني</span>
+  <span class="example-spacer"></span>
+
+  <ul class="nav-list" *ngIf="!isAuthenticated">
+    <a
+      [routerLink]="['/applicants']"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      mat-button
+    >
+      <mat-icon>work</mat-icon>
+      الوظائف
+    </a>
+  </ul>
+
+  <ul class="nav-list" *ngIf="isAuthenticated">
+    <a
+      *ngIf="isOwner"
+      [routerLink]="['applicants', 'new']"
+      routerLinkActive="active"
+      mat-button
+    >
+      <mat-icon>add</mat-icon>
+      أضف وظيفة
+    </a>
+    <a
+      *ngIf="isOwner"
+      [routerLink]="['owner', 'applicants']"
+      routerLinkActive="active"
+      mat-button
+    >
+      <mat-icon>person</mat-icon>
+      وظائفي
+    </a>
+
+    <a
+      *ngIf="isClient || isOwner"
+      [routerLink]="['/applicants']"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      mat-button
+    >
+      <mat-icon>work</mat-icon>
+      الوظائف
+    </a>
+
+    <ul class="nav-list" *ngIf="isAdmin">
+      <a
+        [routerLink]="['admin', 'management']"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        mat-button
+      >
+        <mat-icon>manage_accounts</mat-icon>
+        الإدارة
+      </a>
+      <a
+        [routerLink]="['admin', 'applicants']"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        mat-button
+      >
+        <mat-icon>work</mat-icon>
+        الوظائف
+      </a>
+    </ul>
+  </ul>
+
+  <span class="example-spacer"></span>
+
+  <div *ngIf="!isAuthenticated">
+    <a [routerLink]="['/login']" mat-raised-button>
+      <!-- <mat-icon>login</mat-icon> -->
+      تسجيل الدخول
+    </a>
+  </div>
+
+  <div *ngIf="isAuthenticated">
+    <button (click)="onLogout()" mat-raised-button>
+      <!-- <mat-icon>login</mat-icon> -->
+      تسجيل الخروج
+    </button>
+  </div>
+  <!-- <button
+    mat-icon-button
+ 
+    aria-label="Example icon-button with heart icon"
+  >
+    <mat-icon>favorite</mat-icon>
+  </button>
+  <button
+    mat-icon-button
+    class="example-icon"
+    aria-label="Example icon-button with share icon"
+  >
+    <mat-icon>share</mat-icon>
+  </button> -->
+</mat-toolbar>
